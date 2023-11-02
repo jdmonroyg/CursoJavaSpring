@@ -2,7 +2,12 @@
 $(document).ready(function() {
     cargarUsuarios();
     $('#usuarios').DataTable();
+    actualizarEmailDelUsuario();
 });
+
+function actualizarEmailDelUsuario() {
+    document.getElementById('txtEmailUsuario').outerHTML=localStorage.email;
+}
 
 async function cargarUsuarios(){
     const request = await fetch('api/usuarios', {
@@ -38,6 +43,11 @@ async function eliminarUsuario(id){
         headers: getHeaders()
     });
     location.reload();
+}
+
+async function eliminarSesion(){
+    localStorage.removeItem('token'); // Remover el token del localStorage
+    localStorage.removeItem('email'); // Remover el email del localStorage
 }
 
 function getHeaders(){
